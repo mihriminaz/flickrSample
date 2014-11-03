@@ -9,6 +9,7 @@ public class Flickr extends FlickrBaseItem {
     public Flickr(String api_key, String format) {
         super(api_key, format);
         photoSets = new PhotoSets(api_key, format);
+        photoSearchs = new PhotoSearchs(api_key, format);
         photos = new Photos(api_key, format);
     }
 
@@ -31,5 +32,15 @@ public class Flickr extends FlickrBaseItem {
 
     public void setPhotoSets(PhotoSets photoSets) {
         this.photoSets = photoSets;
+    }
+    
+    private PhotoSearchs photoSearchs;
+
+    public PhotoSearchs getPhotoSearchs() {
+        return photoSearchs;
+    }
+
+    public void setPhotoSearchs(PhotoSearchs photoSearchs) {
+        this.photoSearchs = photoSearchs;
     }
 }

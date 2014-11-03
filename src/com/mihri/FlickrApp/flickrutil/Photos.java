@@ -2,6 +2,7 @@ package  com.mihri.FlickrApp.flickrutil;
 
 
 import  com.mihri.FlickrApp.flickrutil.JSONObject.PhotoSetsJSON;
+import  com.mihri.FlickrApp.flickrutil.JSONObject.PhotoSearchsJSON;
 import  com.mihri.FlickrApp.flickrutil.JSONObject.PhotosJSON;
 import com.hintdesk.core.utils.JSONHttpClient;
 import org.apache.http.NameValuePair;
