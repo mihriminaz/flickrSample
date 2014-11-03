@@ -6,13 +6,13 @@ package  com.mihri.FlickrApp.flickrutil;
 public class Flickr extends FlickrBaseItem {
 
 
-    public Flickr(String api_key, String format) {
+    public Flickr(String api_key, String format, double lat, double lon) {
         super(api_key, format);
         photoSets = new PhotoSets(api_key, format);
-        photoSearchs = new PhotoSearchs(api_key, format);
+        photoSearchs = new PhotoSearchs(api_key, format, lat, lon);
         photos = new Photos(api_key, format);
     }
-
+    
 
     public Photos getPhotos() {
         return photos;

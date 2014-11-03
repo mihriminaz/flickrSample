@@ -1,6 +1,7 @@
 package com.mihri.FlickrApp;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -17,6 +18,9 @@ import com.mihri.FlickrApp.vo.ImageInfo;
 import com.hintdesk.core.utils.DeviceUtil;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
+import android.location.Location;
+import android.location.LocationManager;
+import android.location.LocationListener;
 
 import javax.inject.Inject;
 import java.io.IOException;
@@ -31,18 +35,32 @@ public class MainActivity extends RoboActivity {
     @Inject
     ICurrentAppData currentAppData;
     private ImageGridViewAdapter imageGridViewAdapter;
+    protected LocationManager locationManager;
+    private Location lastLocation;
 
+    String context = Context.LOCATION_SERVICE;
+   
+    
+    
     /**
      * Called when the activity is first created.
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+       // fyl lfyl = new fyl(this); //Here the context is passing 
+
+       // lastLocation = lfyl.getLocation();
+       
         setContentView(R.layout.main);
         initializeComponents();
         new LoadImagesFromFlickrTask().execute();
-    }
+        
+  }
 
+
+    
     private void initializeComponents() {
         float spacing = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 ConstantValues.GRIDVIEW_SPACING, getResources().getDisplayMetrics());
@@ -72,8 +90,9 @@ public class MainActivity extends RoboActivity {
 
         @Override
         protected List<ImageInfo> doInBackground(String... params) {
-            Flickr flickr = new Flickr(ConstantValues.FLICKR_API_KEY, ConstantValues.FLICKR_FORMAT);
+            Flickr flickr = new Flickr(ConstantValues.FLICKR_API_KEY, ConstantValues.FLICKR_FORMAT, 0,0);
             List<Photo> photos = flickr.getPhotoSearchs().getPhotos();
+          
             List<ImageInfo> result = new ArrayList<ImageInfo>();
             totalCount = photos.size();
             currentIndex = 0;
@@ -83,12 +102,12 @@ public class MainActivity extends RoboActivity {
                 String thumbnailUrl = sizes.get(0).getSource();
                 String mediumUrl = sizes.get(4).getSource();
                 InputStream inputStreamThumbnail = null, inputStreamMedium = null;
-                try {
-                    inputStreamThumbnail = new URL(thumbnailUrl).openStream();
+                /*try {
+                  inputStreamThumbnail = new URL(thumbnailUrl).openStream();
                     inputStreamMedium = new URL(mediumUrl).openStream();
                 } catch (IOException e) {
                     e.printStackTrace();
-                }
+                }*/
                 Bitmap bitmapThumbnail = BitmapFactory.decodeStream(inputStreamThumbnail);
                 Bitmap bitmapMedium = BitmapFactory.decodeStream(inputStreamMedium);
                 result.add(new ImageInfo(photo.getTitle(), bitmapThumbnail, bitmapMedium));
@@ -108,4 +127,17 @@ public class MainActivity extends RoboActivity {
             super.onPostExecute(s);
         }
     }
+public class fyl {
+       	 Context mContext;
+       	 public fyl(Context mContext){
+       	       this.mContext = mContext;
+       	  }
+
+       	  public Location getLocation(){
+       	   locationManager = (LocationManager)mContext.getSystemService(context);
+       	   return locationManager.getLastKnownLocation(context);
+       	  }
+     }
 }
+    
+
