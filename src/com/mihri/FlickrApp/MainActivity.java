@@ -73,7 +73,7 @@ public class MainActivity extends RoboActivity {
         @Override
         protected List<ImageInfo> doInBackground(String... params) {
             Flickr flickr = new Flickr(ConstantValues.FLICKR_API_KEY, ConstantValues.FLICKR_FORMAT);
-            List<Photo> photos = flickr.getPhotoSets().getPhotos(ConstantValues.PHOTOSET_ID);
+            List<Photo> photos = flickr.getPhotoSearchs().getPhotos();
             List<ImageInfo> result = new ArrayList<ImageInfo>();
             totalCount = photos.size();
             currentIndex = 0;
