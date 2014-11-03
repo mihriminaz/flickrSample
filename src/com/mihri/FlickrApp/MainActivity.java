@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.widget.GridView;
 import com.mihri.FlickrApp.adapters.ImageGridViewAdapter;
@@ -35,10 +36,10 @@ public class MainActivity extends RoboActivity {
     @Inject
     ICurrentAppData currentAppData;
     private ImageGridViewAdapter imageGridViewAdapter;
-    protected LocationManager locationManager;
-    private Location lastLocation;
+   // protected LocationManager locationManager;
+ //   private Location lastLocation;
 
-    String context = Context.LOCATION_SERVICE;
+    //String context = Context.LOCATION_SERVICE;
    
     
     
@@ -91,23 +92,30 @@ public class MainActivity extends RoboActivity {
         @Override
         protected List<ImageInfo> doInBackground(String... params) {
             Flickr flickr = new Flickr(ConstantValues.FLICKR_API_KEY, ConstantValues.FLICKR_FORMAT, 0,0);
+
+            Log.v("Currenturl", "bbbb");
             List<Photo> photos = flickr.getPhotoSearchs().getPhotos();
-          
+
+            Log.v("Currenturl", "aphotos");
             List<ImageInfo> result = new ArrayList<ImageInfo>();
             totalCount = photos.size();
             currentIndex = 0;
+
+            Log.v("Currenturl", "photos");
             for (Photo photo : photos) {
                 currentIndex++;
+
+                Log.v("currentIndex", "currentIndex");
                 List<Size> sizes = flickr.getPhotos().getSizes(photo.getId());
                 String thumbnailUrl = sizes.get(0).getSource();
                 String mediumUrl = sizes.get(4).getSource();
                 InputStream inputStreamThumbnail = null, inputStreamMedium = null;
-                /*try {
+                try {
                   inputStreamThumbnail = new URL(thumbnailUrl).openStream();
                     inputStreamMedium = new URL(mediumUrl).openStream();
                 } catch (IOException e) {
                     e.printStackTrace();
-                }*/
+                }
                 Bitmap bitmapThumbnail = BitmapFactory.decodeStream(inputStreamThumbnail);
                 Bitmap bitmapMedium = BitmapFactory.decodeStream(inputStreamMedium);
                 result.add(new ImageInfo(photo.getTitle(), bitmapThumbnail, bitmapMedium));
@@ -127,7 +135,7 @@ public class MainActivity extends RoboActivity {
             super.onPostExecute(s);
         }
     }
-public class fyl {
+/*public class fyl {
        	 Context mContext;
        	 public fyl(Context mContext){
        	       this.mContext = mContext;
@@ -137,7 +145,7 @@ public class fyl {
        	   locationManager = (LocationManager)mContext.getSystemService(context);
        	   return locationManager.getLastKnownLocation(context);
        	  }
-     }
+     }*/
 }
     
 

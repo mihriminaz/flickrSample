@@ -22,12 +22,16 @@ public class PhotoSearchs extends FlickrBaseItem {
 
     public List<Photo> getPhotos() {
 
-        Log.v("Current url: ", "skfjlksdjg");
+        Log.v("Currenturl", "skfjlksdjg");
         JSONHttpClient jsonHttpClient = new JSONHttpClient();
         String url = String.format(FlickrUrls.flickr_photos_searchPhotos, format, api_key);
        
-       Log.v("Current url: ", url);
+       Log.v("Currenturl", url);
+       
         PhotoSearchsJSON photoSearchJson = jsonHttpClient.Get(url, new ArrayList<NameValuePair>(), PhotoSearchsJSON.class);
+
+        Log.v("Currenturl", photoSearchJson.toString());
+       
         return photoSearchJson.getPhotoSearch().getPhoto();
     }
    

@@ -15,7 +15,7 @@ public class Photo {
     }
 
     private String id;
-    private String isprimary;
+    //private String isprimary;
     private String secret;
     private String server;
 

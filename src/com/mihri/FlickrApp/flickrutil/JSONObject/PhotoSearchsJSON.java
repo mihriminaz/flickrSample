@@ -9,12 +9,12 @@ import com.mihri.FlickrApp.flickrutil.PhotoSet;
  */
 public class PhotoSearchsJSON extends FlickrBaseItemJSON {
 	    public PhotoSearch getPhotoSearch() {
-	        return photoSearch;
+	        return photos;
 	    }
 
-	    public void setPhotoSearch(PhotoSearch photoSearch) {
-	        this.photoSearch = photoSearch;
+	    public void setPhotoSearch(PhotoSearch photos) {
+	        this.photos = photos;
 	    }
 
-	    private PhotoSearch photoSearch;
+	    private PhotoSearch photos;
 }
